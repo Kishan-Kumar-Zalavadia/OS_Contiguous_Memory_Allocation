@@ -1,12 +1,12 @@
 8192
-C
-C
-RQ P3 9 W
-C
-C
-RQ P6 425 B
-RQ P7 480 B
-C
 RL P0
+C
+C
+C
+C
+C
 RL P5
+C
+RL P3
+RQ P10 97 W
 STAT

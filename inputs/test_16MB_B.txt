@@ -1,0 +1,12 @@
+16384
+RL P0
+C
+RL P2
+RL P3
+C
+RL P0
+C
+C
+RQ P9 24 B
+C
+STAT
