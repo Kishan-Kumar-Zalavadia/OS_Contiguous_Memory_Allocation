@@ -37,7 +37,7 @@ public:
     // ************************************************************************************************
     // Allocate the memory for the process
     void allocateMemory(const string& process, int size, const string& strategy) {
-        cout << "Attempting to allocate " << size << " units to process " << process << " using strategy " << strategy << ".\n";
+        // cout << "Attempting to allocate " << size << " units to process " << process << " using strategy " << strategy << ".\n";
         MemoryBlock* selectedBlock = nullptr;
 
         // First Fit
@@ -94,14 +94,14 @@ public:
             memoryBlocks.insert(memoryBlocks.begin() + index + 1, newBlock);
         }
 
-        cout << "Allocation successful for process " << process << ".\n";
-        printStats();
+        // cout << "Allocation successful for process " << process << ".\n";
+        // printStats();
     }
 
     // ************************************************************************************************
     // Releases the memory for the process
     void releaseMemory(const string& process) {
-        cout << "Attempting to release memory for process " << process << ".\n";
+        // cout << "Attempting to release memory for process " << process << ".\n";
         bool found = false;
         for (size_t i = 0; i < memoryBlocks.size(); ++i) {
             if (!memoryBlocks[i].isFree && memoryBlocks[i].process == process) {
@@ -113,17 +113,17 @@ public:
         if (!found) {
             cout << "Error: Process " << process << " not found.\n";
         } else {
-            cout << "Memory released for process " << process << ".\n";
+            // cout << "Memory released for process " << process << ".\n";
             mergeFreeMemoryBlocks();
         }
 
-        printStats();
+        // printStats();
     }
 
     // ************************************************************************************************
     // Compact the memory blocks
     void compactMemory() {
-        cout << "Compacting memory...\n";
+        // cout << "Compacting memory...\n";
         int freeSize = 0;
         int currentAddress = 0;
         vector<MemoryBlock> compactedBlocks;
@@ -143,8 +143,8 @@ public:
         }
 
         memoryBlocks = compactedBlocks;
-        cout << "Memory compaction completed.\n";
-        printStats();
+        // cout << "Memory compaction completed.\n";
+        // printStats();
     }
 
     // ************************************************************************************************
@@ -180,7 +180,7 @@ int main(int argc, char* argv[]) {
     getline(inputFile, line);
     int totalMemory = stoi(line);
     MemoryAllocator allocator(totalMemory);
-    cout << "Initialized memory allocator with " << totalMemory << " units of memory.\n\n";
+    // cout << "Initialized memory allocator with " << totalMemory << " units of memory.\n\n";
 
     while (getline(inputFile, line)) {
         istringstream iss(line);
