@@ -3,9 +3,10 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include <dirent.h> // For reading files in a directory
+#include <filesystem>
 
 using namespace std;
+namespace fs = std::filesystem;
 
 struct MemoryBlock {
     int start;
@@ -35,9 +36,12 @@ public:
         memoryBlocks.push_back(MemoryBlock(0, totalMemory));
     }
 
+    // ************************************************************************************************
+    // Allocate the memory for the process
     void allocateMemory(const string& process, int size, const string& strategy) {
         MemoryBlock* selectedBlock = nullptr;
 
+        // First Fit
         if (strategy == "F") {
             for (size_t i = 0; i < memoryBlocks.size(); ++i) {
                 if (memoryBlocks[i].isFree && memoryBlocks[i].size >= size) {
@@ -45,6 +49,7 @@ public:
                     break;
                 }
             }
+        // Best Fit
         } else if (strategy == "B") {
             for (size_t i = 0; i < memoryBlocks.size(); ++i) {
                 if (memoryBlocks[i].isFree && memoryBlocks[i].size >= size) {
@@ -53,6 +58,7 @@ public:
                     }
                 }
             }
+        // Worst Fit
         } else if (strategy == "W") { 
             for (size_t i = 0; i < memoryBlocks.size(); ++i) {
                 if (memoryBlocks[i].isFree && memoryBlocks[i].size >= size) {
@@ -71,10 +77,12 @@ public:
             return;
         }
 
+        // Memory allocation
         selectedBlock->isFree = false;
         selectedBlock->process = process;
 
         if (selectedBlock->size > size) {
+            // Split the memory block into two
             MemoryBlock newBlock(selectedBlock->start + size, selectedBlock->size - size);
             selectedBlock->size = size;
             int index = 0;
@@ -88,6 +96,8 @@ public:
         }
     }
 
+    // ************************************************************************************************
+    // Releases the memory for the process
     void releaseMemory(const string& process) {
         bool found = false;
         for (size_t i = 0; i < memoryBlocks.size(); ++i) {
@@ -104,6 +114,8 @@ public:
         }
     }
 
+    // ************************************************************************************************
+    // Compact the memory blocks
     void compactMemory() {
         int freeSize = 0;
         int currentAddress = 0;
@@ -126,6 +138,8 @@ public:
         memoryBlocks = compactedBlocks;
     }
 
+    // ************************************************************************************************
+    // Display the current status of the memory blocks
     void printStats() const {
         cout << "Current memory status:\n";
         for (size_t i = 0; i < memoryBlocks.size(); ++i) {
@@ -139,10 +153,10 @@ public:
     }
 };
 
-void processFile(const string& filePath) {
-    ifstream inputFile(filePath);
+void processFile(const string& inputFileName) {
+    ifstream inputFile(inputFileName);
     if (!inputFile) {
-        cerr << "Error: Unable to open input file " << filePath << ".\n";
+        cerr << "Error: Unable to open input file " << inputFileName << ".\n";
         return;
     }
 
@@ -178,30 +192,13 @@ void processFile(const string& filePath) {
 }
 
 int main() {
-    // Folder with input files
-    const string folder = "inputs/";
-
-    // Open the directory
-    DIR* dir = opendir(folder.c_str());
-    if (!dir) {
-        cerr << "Error: Could not open directory " << folder << ".\n";
-        return 1;
-    }
-
-    struct dirent* entry;
-    while ((entry = readdir(dir)) != nullptr) {
-        string filename = entry->d_name;
-
-        // Skip directories and non-text files
-        if (filename == "." || filename == ".." || filename.find(".txt") == string::npos) {
-            continue;
+    string inputFolder = "inputs";  // Folder containing input files
+    for (const auto& entry : fs::directory_iterator(inputFolder)) {
+        if (entry.is_regular_file()) {
+            cout << "Processing file: " << entry.path().filename() << endl;
+            processFile(entry.path().string());
         }
-
-        string filePath = folder + filename;
-        cout << "Processing file: " << filePath << "\n";
-        processFile(filePath);
     }
 
-    closedir(dir);
     return 0;
 }
