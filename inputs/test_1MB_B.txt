@@ -1,0 +1,12 @@
+1024
+RQ P1 16 B
+RL P1
+C
+C
+C
+RQ P6 239 B
+RL P6
+RL P1
+C
+C
+STAT

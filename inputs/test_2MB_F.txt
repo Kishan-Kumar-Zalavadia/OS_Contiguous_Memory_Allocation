@@ -1,0 +1,12 @@
+2048
+C
+RL P2
+C
+RL P0
+C
+C
+RL P1
+C
+RQ P9 24 F
+RL P8
+STAT
