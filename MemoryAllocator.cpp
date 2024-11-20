@@ -140,10 +140,16 @@ public:
     }
 };
 
-int main() {
-    ifstream inputFile("input.txt");
+int main(int argc, char* argv[]) {
+    if (argc != 2) {
+        cerr << "Usage: " << argv[0] << " <input_file>\n";
+        return 1;
+    }
+
+    string inputFileName = argv[1];
+    ifstream inputFile(inputFileName);
     if (!inputFile) {
-        cerr << "Error: Unable to open input file.\n";
+        cerr << "Error: Unable to open input file " << inputFileName << ".\n";
         return 1;
     }
 
