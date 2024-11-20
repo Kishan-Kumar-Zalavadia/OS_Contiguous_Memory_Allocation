@@ -202,3 +202,8 @@ int main() {
 
     return 0;
 }
+
+/* 
+  Compile the code
+  g++ -std=c++17 -o MultiFileMemoryAllocator MultiFileMemoryAllocator.cpp                                                  ─╯
+*/
