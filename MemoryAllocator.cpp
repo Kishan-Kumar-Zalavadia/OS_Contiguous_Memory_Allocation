@@ -19,12 +19,12 @@ class MemoryAllocator {
 private:
     vector<MemoryBlock> memoryBlocks;
 
-    void mergeFreeBlocks() {
+    void mergeFreeMemoryBlocks() {
         for (size_t i = 0; i < memoryBlocks.size() - 1; ++i) {
             if (memoryBlocks[i].isFree && memoryBlocks[i + 1].isFree) {
                 memoryBlocks[i].size += memoryBlocks[i + 1].size;
                 memoryBlocks.erase(memoryBlocks.begin() + i + 1);
-                --i; // Recheck for further merging
+                --i;
             }
         }
     }
@@ -34,18 +34,22 @@ public:
         memoryBlocks.push_back(MemoryBlock(0, totalMemory));
     }
 
+    // ************************************************************************************************
+    // Allocate the memory for the process
     void allocateMemory(const string& process, int size, const string& strategy) {
         cout << "Attempting to allocate " << size << " units to process " << process << " using strategy " << strategy << ".\n";
         MemoryBlock* selectedBlock = nullptr;
 
-        if (strategy == "F") { // First Fit
+        // First Fit
+        if (strategy == "F") {
             for (size_t i = 0; i < memoryBlocks.size(); ++i) {
                 if (memoryBlocks[i].isFree && memoryBlocks[i].size >= size) {
                     selectedBlock = &memoryBlocks[i];
                     break;
                 }
             }
-        } else if (strategy == "B") { // Best Fit
+        // Best Fit
+        } else if (strategy == "B") {
             for (size_t i = 0; i < memoryBlocks.size(); ++i) {
                 if (memoryBlocks[i].isFree && memoryBlocks[i].size >= size) {
                     if (!selectedBlock || memoryBlocks[i].size < selectedBlock->size) {
@@ -53,7 +57,8 @@ public:
                     }
                 }
             }
-        } else if (strategy == "W") { // Worst Fit
+        // Worst Fit
+        } else if (strategy == "W") { 
             for (size_t i = 0; i < memoryBlocks.size(); ++i) {
                 if (memoryBlocks[i].isFree && memoryBlocks[i].size >= size) {
                     if (!selectedBlock || memoryBlocks[i].size > selectedBlock->size) {
@@ -71,15 +76,14 @@ public:
             return;
         }
 
-        // Allocate memory
+        // Memory allocation
         selectedBlock->isFree = false;
         selectedBlock->process = process;
 
         if (selectedBlock->size > size) {
-            // Split the block
+          // Split the memory block into two
             MemoryBlock newBlock(selectedBlock->start + size, selectedBlock->size - size);
             selectedBlock->size = size;
-
             int index = 0;
             for (size_t i = 0; i < memoryBlocks.size(); ++i) {
                 if (&memoryBlocks[i] == selectedBlock) {
@@ -91,9 +95,11 @@ public:
         }
 
         cout << "Allocation successful for process " << process << ".\n";
-        displayStatus();
+        printStats();
     }
 
+    // ************************************************************************************************
+    // Releases the memory for the process
     void releaseMemory(const string& process) {
         cout << "Attempting to release memory for process " << process << ".\n";
         bool found = false;
@@ -104,17 +110,18 @@ public:
                 found = true;
             }
         }
-
         if (!found) {
             cout << "Error: Process " << process << " not found.\n";
         } else {
             cout << "Memory released for process " << process << ".\n";
-            mergeFreeBlocks();
+            mergeFreeMemoryBlocks();
         }
 
-        displayStatus();
+        printStats();
     }
 
+    // ************************************************************************************************
+    // Compact the memory blocks
     void compactMemory() {
         cout << "Compacting memory...\n";
         int freeSize = 0;
@@ -136,12 +143,13 @@ public:
         }
 
         memoryBlocks = compactedBlocks;
-
         cout << "Memory compaction completed.\n";
-        displayStatus();
+        printStats();
     }
 
-    void displayStatus() const {
+    // ************************************************************************************************
+    // Display the current status of the memory blocks
+    void printStats() const {
         cout << "Current memory status:\n";
         for (size_t i = 0; i < memoryBlocks.size(); ++i) {
             if (memoryBlocks[i].isFree) {
@@ -153,7 +161,8 @@ public:
         cout << endl;
     }
 };
-
+// ************************************************************************************************
+// Main function
 int main(int argc, char* argv[]) {
     if (argc != 2) {
         cerr << "Usage: " << argv[0] << " <input_file>\n";
@@ -190,7 +199,7 @@ int main(int argc, char* argv[]) {
         } else if (command == "C") {
             allocator.compactMemory();
         } else if (command == "STAT") {
-            allocator.displayStatus();
+            allocator.printStats();
         } else {
             cout << "Error: Invalid command.\n";
         }
