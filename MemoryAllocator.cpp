@@ -35,6 +35,7 @@ public:
     }
 
     void allocateMemory(const string& process, int size, const string& strategy) {
+        cout << "Attempting to allocate " << size << " units to process " << process << " using strategy " << strategy << ".\n";
         MemoryBlock* selectedBlock = nullptr;
 
         if (strategy == "F") { // First Fit
@@ -88,9 +89,13 @@ public:
             }
             memoryBlocks.insert(memoryBlocks.begin() + index + 1, newBlock);
         }
+
+        cout << "Allocation successful for process " << process << ".\n";
+        displayStatus();
     }
 
     void releaseMemory(const string& process) {
+        cout << "Attempting to release memory for process " << process << ".\n";
         bool found = false;
         for (size_t i = 0; i < memoryBlocks.size(); ++i) {
             if (!memoryBlocks[i].isFree && memoryBlocks[i].process == process) {
@@ -103,11 +108,15 @@ public:
         if (!found) {
             cout << "Error: Process " << process << " not found.\n";
         } else {
+            cout << "Memory released for process " << process << ".\n";
             mergeFreeBlocks();
         }
+
+        displayStatus();
     }
 
     void compactMemory() {
+        cout << "Compacting memory...\n";
         int freeSize = 0;
         int currentAddress = 0;
         vector<MemoryBlock> compactedBlocks;
@@ -127,16 +136,21 @@ public:
         }
 
         memoryBlocks = compactedBlocks;
+
+        cout << "Memory compaction completed.\n";
+        displayStatus();
     }
 
     void displayStatus() const {
+        cout << "Current memory status:\n";
         for (size_t i = 0; i < memoryBlocks.size(); ++i) {
             if (memoryBlocks[i].isFree) {
-                cout << "Addresses [" << memoryBlocks[i].start << ":" << (memoryBlocks[i].start + memoryBlocks[i].size - 1) << "] Unused\n";
+                cout << "  Addresses [" << memoryBlocks[i].start << ":" << (memoryBlocks[i].start + memoryBlocks[i].size - 1) << "] Unused\n";
             } else {
-                cout << "Addresses [" << memoryBlocks[i].start << ":" << (memoryBlocks[i].start + memoryBlocks[i].size - 1) << "] Process " << memoryBlocks[i].process << "\n";
+                cout << "  Addresses [" << memoryBlocks[i].start << ":" << (memoryBlocks[i].start + memoryBlocks[i].size - 1) << "] Process " << memoryBlocks[i].process << "\n";
             }
         }
+        cout << endl;
     }
 };
 
@@ -157,6 +171,7 @@ int main(int argc, char* argv[]) {
     getline(inputFile, line);
     int totalMemory = stoi(line);
     MemoryAllocator allocator(totalMemory);
+    cout << "Initialized memory allocator with " << totalMemory << " units of memory.\n\n";
 
     while (getline(inputFile, line)) {
         istringstream iss(line);
