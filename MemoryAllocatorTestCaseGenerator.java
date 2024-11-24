@@ -142,7 +142,7 @@ public class MemoryAllocatorTestCaseGenerator {
 // ************************************************************************************************
 /* 
   Compile the code
-    j
+    javac MemoryAllocatorTestCaseGenerator.java
 
   Run the code
     java MemoryAllocatorTestCaseGenerator
