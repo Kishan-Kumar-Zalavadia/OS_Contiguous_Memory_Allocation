@@ -15,6 +15,10 @@ struct MemoryBlock {
     string process;
 
     MemoryBlock(int start, int size) : start(start), size(size), isFree(true), process("") {}
+
+    bool operator==(const MemoryBlock& other) const {
+        return start == other.start && size == other.size && isFree == other.isFree && process == other.process;
+    }
 };
 
 class MemoryAllocator {
@@ -36,12 +40,9 @@ public:
         memoryBlocks.push_back(MemoryBlock(0, totalMemory));
     }
 
-    // ************************************************************************************************
-    // Allocate the memory for the process
     void allocateMemory(const string& process, int size, const string& strategy) {
         MemoryBlock* selectedBlock = nullptr;
 
-        // First Fit
         if (strategy == "F") {
             for (size_t i = 0; i < memoryBlocks.size(); ++i) {
                 if (memoryBlocks[i].isFree && memoryBlocks[i].size >= size) {
@@ -49,7 +50,6 @@ public:
                     break;
                 }
             }
-        // Best Fit
         } else if (strategy == "B") {
             for (size_t i = 0; i < memoryBlocks.size(); ++i) {
                 if (memoryBlocks[i].isFree && memoryBlocks[i].size >= size) {
@@ -58,8 +58,7 @@ public:
                     }
                 }
             }
-        // Worst Fit
-        } else if (strategy == "W") { 
+        } else if (strategy == "W") {
             for (size_t i = 0; i < memoryBlocks.size(); ++i) {
                 if (memoryBlocks[i].isFree && memoryBlocks[i].size >= size) {
                     if (!selectedBlock || memoryBlocks[i].size > selectedBlock->size) {
@@ -77,27 +76,17 @@ public:
             return;
         }
 
-        // Memory allocation
         selectedBlock->isFree = false;
         selectedBlock->process = process;
 
         if (selectedBlock->size > size) {
-            // Split the memory block into two
             MemoryBlock newBlock(selectedBlock->start + size, selectedBlock->size - size);
             selectedBlock->size = size;
-            int index = 0;
-            for (size_t i = 0; i < memoryBlocks.size(); ++i) {
-                if (&memoryBlocks[i] == selectedBlock) {
-                    index = i;
-                    break;
-                }
-            }
-            memoryBlocks.insert(memoryBlocks.begin() + index + 1, newBlock);
+            auto it = find(memoryBlocks.begin(), memoryBlocks.end(), *selectedBlock);
+            memoryBlocks.insert(it + 1, newBlock);
         }
     }
 
-    // ************************************************************************************************
-    // Releases the memory for the process
     void releaseMemory(const string& process) {
         bool found = false;
         for (size_t i = 0; i < memoryBlocks.size(); ++i) {
@@ -114,8 +103,6 @@ public:
         }
     }
 
-    // ************************************************************************************************
-    // Compact the memory blocks
     void compactMemory() {
         int freeSize = 0;
         int currentAddress = 0;
@@ -138,28 +125,47 @@ public:
         memoryBlocks = compactedBlocks;
     }
 
-    // ************************************************************************************************
-    // Display the current status of the memory blocks
-    void printStats() const {
+    void printStats(const string& outputFileName) const {
+        ofstream outputFile(outputFileName, ios::app);
+        if (!outputFile) {
+            cerr << "Error: Unable to open output file " << outputFileName << ".\n";
+            return;
+        }
+
         cout << "Current memory status:\n";
+        outputFile << "Current memory status:\n";
+
         for (size_t i = 0; i < memoryBlocks.size(); ++i) {
             if (memoryBlocks[i].isFree) {
                 cout << "  Addresses [" << memoryBlocks[i].start << ":" << (memoryBlocks[i].start + memoryBlocks[i].size - 1) << "] Unused\n";
+                outputFile << "  Addresses [" << memoryBlocks[i].start << ":" << (memoryBlocks[i].start + memoryBlocks[i].size - 1) << "] Unused\n";
             } else {
                 cout << "  Addresses [" << memoryBlocks[i].start << ":" << (memoryBlocks[i].start + memoryBlocks[i].size - 1) << "] Process " << memoryBlocks[i].process << "\n";
+                outputFile << "  Addresses [" << memoryBlocks[i].start << ":" << (memoryBlocks[i].start + memoryBlocks[i].size - 1) << "] Process " << memoryBlocks[i].process << "\n";
             }
         }
+
         cout << endl;
+        outputFile << endl;
+        outputFile.close();
     }
 };
 
-// ************************************************************************************************
-void processFile(const string& inputFileName) {
+void processFile(const string& inputFileName, const string& outputFileName) {
     ifstream inputFile(inputFileName);
     if (!inputFile) {
         cerr << "Error: Unable to open input file " << inputFileName << ".\n";
         return;
     }
+
+    // Append a header for this file's results
+    ofstream outputFile(outputFileName, ios::app);
+    if (!outputFile) {
+        cerr << "Error: Unable to open output file " << outputFileName << ".\n";
+        return;
+    }
+    outputFile << "Processing file: " << inputFileName << "\n";
+    outputFile.close();
 
     string line;
     getline(inputFile, line);
@@ -183,7 +189,7 @@ void processFile(const string& inputFileName) {
         } else if (command == "C") {
             allocator.compactMemory();
         } else if (command == "STAT") {
-            allocator.printStats();
+            allocator.printStats(outputFileName);
         } else {
             cout << "Error: Invalid command.\n";
         }
@@ -191,24 +197,33 @@ void processFile(const string& inputFileName) {
 
     inputFile.close();
 }
-// ************************************************************************************************
+
+
 int main() {
-    string inputFolder = "inputs";  // Folder containing input files
+    string inputFolder = "inputs";
+    string outputFileName = "memory_stats.txt";
+
+    // Clear the output file at the start of the program
+    ofstream clearFile(outputFileName, ios::trunc);
+    clearFile.close();
+
+    // Process each file in the input folder
     for (const auto& entry : fs::directory_iterator(inputFolder)) {
         if (entry.is_regular_file()) {
             cout << "Processing file: " << entry.path().filename() << endl;
-            processFile(entry.path().string());
+            processFile(entry.path().string(), outputFileName);
         }
     }
 
+    cout << "All outputs stored in " << outputFileName << endl;
     return 0;
 }
 
-// ************************************************************************************************
+
 /* 
-  Compile the code
+  Compile the code:
     g++ -std=c++17 -o MultiFileMemoryAllocator MultiFileMemoryAllocator.cpp
 
-  Run the code
+  Run the code:
     ./MultiFileMemoryAllocator
 */
