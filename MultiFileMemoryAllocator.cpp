@@ -205,5 +205,8 @@ int main() {
 
 /* 
   Compile the code
-  g++ -std=c++17 -o MultiFileMemoryAllocator MultiFileMemoryAllocator.cpp                                                  ─╯
+    g++ -std=c++17 -o MultiFileMemoryAllocator MultiFileMemoryAllocator.cpp
+
+  Run the code
+    ./MultiFileMemoryAllocator
 */

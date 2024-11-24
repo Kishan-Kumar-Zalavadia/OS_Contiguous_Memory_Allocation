@@ -138,3 +138,11 @@ public class MemoryAllocatorTestCaseGenerator {
         }
     }
 }
+
+/* 
+  Compile the code
+    javac MemoryAllocatorTestCaseGenerator.java
+
+  Run the code
+    java MemoryAllocatorTestCaseGenerator
+*/

@@ -177,31 +177,23 @@ void processFile(const string& filePath) {
     inputFile.close();
 }
 
-int main() {
-    // Folder with input files
-    const string folder = "inputs/";
-
-    // Open the directory
-    DIR* dir = opendir(folder.c_str());
-    if (!dir) {
-        cerr << "Error: Could not open directory " << folder << ".\n";
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        cout << "Usage: ./MemoryAllocator file_name" << endl;
         return 1;
     }
 
-    struct dirent* entry;
-    while ((entry = readdir(dir)) != nullptr) {
-        string filename = entry->d_name;
+    string filePath = argv[1];
+    cout << "Processing file: " << filePath << "\n";
+    processFile(filePath);
 
-        // Skip directories and non-text files
-        if (filename == "." || filename == ".." || filename.find(".txt") == string::npos) {
-            continue;
-        }
-
-        string filePath = folder + filename;
-        cout << "Processing file: " << filePath << "\n";
-        processFile(filePath);
-    }
-
-    closedir(dir);
     return 0;
 }
+
+/* 
+  Compile the code
+    g++ -o MemoryAllocator MemoryAllocator.cpp
+
+  Run the code
+  ./MemoryAllocator file_name
+*/
