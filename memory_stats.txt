@@ -1,142 +1,146 @@
 Processing file: inputs/test_16MB_mixed.txt
 Current memory status:
-  Addresses [0:377] Process P2
-  Addresses [378:432] Process P7
-  Addresses [433:762] Process P8
-  Addresses [763:958] Process P10
-  Addresses [959:16383] Unused
+  Addresses [0:206] Process P5
+  Addresses [207:475] Process P10
+  Addresses [476:16383] Unused
 
 Processing file: inputs/test_4MB_B.txt
 Current memory status:
-  Addresses [0:58] Process P2
-  Addresses [59:105] Process P3
-  Addresses [106:184] Process P7
-  Addresses [185:208] Process P8
-  Addresses [209:4095] Unused
+  Addresses [0:284] Process P2
+  Addresses [285:618] Process P3
+  Addresses [619:1085] Process P6
+  Addresses [1086:1126] Process P7
+  Addresses [1127:1321] Process P9
+  Addresses [1322:4095] Unused
 
 Processing file: inputs/test_4MB_W.txt
 Current memory status:
-  Addresses [0:112] Process P3
-  Addresses [113:310] Process P6
-  Addresses [311:651] Process P7
-  Addresses [652:764] Process P9
-  Addresses [765:4095] Unused
+  Addresses [0:437] Process P5
+  Addresses [438:764] Process P7
+  Addresses [765:1203] Process P9
+  Addresses [1204:4095] Unused
 
 Processing file: inputs/test_4MB_F.txt
 Current memory status:
-  Addresses [0:198] Process P2
-  Addresses [199:234] Process P5
-  Addresses [235:4095] Unused
+  Addresses [0:23] Process P6
+  Addresses [24:324] Process P8
+  Addresses [325:455] Process P10
+  Addresses [456:4095] Unused
 
 Processing file: inputs/test_1MB_F.txt
 Current memory status:
-  Addresses [0:231] Process P2
-  Addresses [232:732] Process P6
-  Addresses [733:960] Process P9
-  Addresses [961:1023] Unused
+  Addresses [0:403] Process P5
+  Addresses [404:605] Process P6
+  Addresses [606:1023] Unused
 
 Processing file: inputs/test_2MB_mixed.txt
 Current memory status:
-  Addresses [0:455] Process P3
-  Addresses [456:947] Process P5
-  Addresses [948:1129] Process P6
-  Addresses [1130:1480] Process P10
-  Addresses [1481:2047] Unused
+  Addresses [0:11] Process P1
+  Addresses [12:320] Process P6
+  Addresses [321:351] Process P7
+  Addresses [352:591] Process P8
+  Addresses [592:1028] Process P9
+  Addresses [1029:2047] Unused
 
 Processing file: inputs/test_8MB_F.txt
 Current memory status:
-  Addresses [0:509] Process P2
-  Addresses [510:1017] Process P7
-  Addresses [1018:1228] Process P8
-  Addresses [1229:8191] Unused
+  Addresses [0:188] Process P1
+  Addresses [189:621] Process P3
+  Addresses [622:737] Process P8
+  Addresses [738:746] Process P9
+  Addresses [747:8191] Unused
 
 Processing file: inputs/test_1MB_W.txt
 Current memory status:
-  Addresses [0:26] Unused
-  Addresses [27:82] Process P5
-  Addresses [83:145] Process P7
-  Addresses [146:522] Process P9
-  Addresses [523:1023] Unused
+  Addresses [0:138] Process P2
+  Addresses [139:186] Process P5
+  Addresses [187:579] Process P6
+  Addresses [580:993] Process P9
+  Addresses [994:1023] Unused
 
 Processing file: inputs/test_8MB_B.txt
 Current memory status:
-  Addresses [0:136] Process P10
-  Addresses [137:270] Unused
-  Addresses [271:605] Process P6
-  Addresses [606:998] Process P7
-  Addresses [999:1172] Process P8
-  Addresses [1173:8191] Unused
+  Addresses [0:91] Process P2
+  Addresses [92:209] Process P7
+  Addresses [210:269] Process P8
+  Addresses [270:329] Process P10
+  Addresses [330:8191] Unused
 
 Processing file: inputs/test_8MB_W.txt
 Current memory status:
-  Addresses [0:415] Process P1
-  Addresses [416:869] Process P6
-  Addresses [870:1048] Process P10
-  Addresses [1049:8191] Unused
+  Addresses [0:299] Process P1
+  Addresses [300:481] Process P4
+  Addresses [482:8191] Unused
 
 Processing file: inputs/test_1MB_B.txt
 Current memory status:
-  Addresses [0:1023] Unused
+  Addresses [0:511] Process P1
+  Addresses [512:555] Process P4
+  Addresses [556:595] Process P5
+  Addresses [596:623] Process P7
+  Addresses [624:625] Process P9
+  Addresses [626:630] Process P10
+  Addresses [631:1023] Unused
 
 Processing file: inputs/test_16MB_W.txt
 Current memory status:
-  Addresses [0:118] Process P9
-  Addresses [119:16383] Unused
+  Addresses [0:88] Process P1
+  Addresses [89:144] Process P3
+  Addresses [145:645] Process P9
+  Addresses [646:16383] Unused
 
 Processing file: inputs/test_16MB_B.txt
 Current memory status:
-  Addresses [0:206] Process P3
-  Addresses [207:309] Process P5
-  Addresses [310:528] Process P7
-  Addresses [529:838] Process P10
-  Addresses [839:16383] Unused
+  Addresses [0:166] Process P7
+  Addresses [167:439] Process P9
+  Addresses [440:16383] Unused
 
 Processing file: inputs/test_2MB_F.txt
 Current memory status:
-  Addresses [0:360] Process P7
-  Addresses [361:361] Process P9
-  Addresses [362:2047] Unused
+  Addresses [0:43] Process P6
+  Addresses [44:495] Process P7
+  Addresses [496:754] Process P8
+  Addresses [755:1249] Process P10
+  Addresses [1250:2047] Unused
 
 Processing file: inputs/test_4MB_mixed.txt
 Current memory status:
-  Addresses [0:273] Process P2
-  Addresses [274:439] Process P6
-  Addresses [440:471] Process P8
-  Addresses [472:4095] Unused
+  Addresses [0:115] Process P4
+  Addresses [116:426] Process P9
+  Addresses [427:4095] Unused
 
 Processing file: inputs/test_2MB_B.txt
 Current memory status:
-  Addresses [0:106] Process P8
-  Addresses [107:200] Process P9
-  Addresses [201:284] Process P3
-  Addresses [285:306] Process P4
-  Addresses [307:2047] Unused
+  Addresses [0:368] Process P4
+  Addresses [369:525] Process P9
+  Addresses [526:2047] Unused
 
 Processing file: inputs/test_16MB_F.txt
 Current memory status:
-  Addresses [0:12] Process P6
-  Addresses [13:370] Process P7
-  Addresses [371:16383] Unused
+  Addresses [0:366] Process P7
+  Addresses [367:16383] Unused
 
 Processing file: inputs/test_1MB_mixed.txt
 Current memory status:
-  Addresses [0:38] Process P2
-  Addresses [39:74] Process P4
-  Addresses [75:546] Process P5
-  Addresses [547:874] Process P8
-  Addresses [875:1023] Unused
+  Addresses [0:5] Process P7
+  Addresses [6:1023] Unused
 
 Processing file: inputs/test_2MB_W.txt
 Current memory status:
-  Addresses [0:550] Unused
-  Addresses [551:813] Process P6
-  Addresses [814:2047] Unused
+  Addresses [0:228] Process P2
+  Addresses [229:618] Process P6
+  Addresses [619:1119] Process P7
+  Addresses [1120:1449] Process P8
+  Addresses [1450:2047] Unused
 
 Processing file: inputs/test_8MB_mixed.txt
 Current memory status:
-  Addresses [0:508] Process P3
-  Addresses [509:610] Unused
-  Addresses [611:817] Process P5
-  Addresses [818:857] Process P8
-  Addresses [858:8191] Unused
+  Addresses [0:352] Process P1
+  Addresses [353:677] Process P2
+  Addresses [678:862] Process P3
+  Addresses [863:1175] Process P6
+  Addresses [1176:1560] Process P7
+  Addresses [1561:1744] Process P8
+  Addresses [1745:1859] Process P10
+  Addresses [1860:8191] Unused
 
