@@ -4,6 +4,8 @@
 #include <fstream>
 #include <sstream>
 #include <filesystem>
+#include <algorithm>
+
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -84,7 +86,9 @@ public:
         if (selectedBlock->size > size) {
             MemoryBlock newBlock(selectedBlock->start + size, selectedBlock->size - size);
             selectedBlock->size = size;
-            auto it = find(memoryBlocks.begin(), memoryBlocks.end(), *selectedBlock);
+            auto it = std::find_if(memoryBlocks.begin(), memoryBlocks.end(),[&selectedBlock](const MemoryBlock& block) {
+                           return block == *selectedBlock; // Compare memory blocks
+            });
             memoryBlocks.insert(it + 1, newBlock);
         }
     }
