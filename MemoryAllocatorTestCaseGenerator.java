@@ -8,7 +8,7 @@ import java.util.Set;
 public class MemoryAllocatorTestCaseGenerator {
     public static void main(String[] args) {
         // Define system memory sizes (in MB)
-        int[] memorySizes = {1, 2, 4, 8, 16}; // You can expand this array as needed
+        int[] memorySizes = {1, 2, 4, 8, 16};
         String[] strategies = {"F", "B", "W"}; // First Fit, Best Fit, Worst Fit
         int numProcesses = 10; // Number of processes to generate for each test case
         int maxMemoryRequest = 512; // Max memory each process can request (in KB)
@@ -125,7 +125,7 @@ public class MemoryAllocatorTestCaseGenerator {
             }
         }
     }
-
+    // ************************************************************************************************
     // Method to get a random strategy (F, B, or W)
     private static String getRandomStrategy(Random rand) {
         int strategyChoice = rand.nextInt(3);
@@ -139,6 +139,7 @@ public class MemoryAllocatorTestCaseGenerator {
     }
 }
 
+// ************************************************************************************************
 /* 
   Compile the code
     javac MemoryAllocatorTestCaseGenerator.java

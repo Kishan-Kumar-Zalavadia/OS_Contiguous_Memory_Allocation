@@ -35,6 +35,7 @@ public:
         memoryBlocks.push_back(MemoryBlock(0, totalMemory));
     }
 
+    // ************************************************************************************************
     void allocateMemory(const string& process, int size, const string& strategy) {
         MemoryBlock* selectedBlock = nullptr;
 
@@ -88,6 +89,7 @@ public:
         }
     }
 
+    // ************************************************************************************************
     void releaseMemory(const string& process) {
         bool found = false;
         for (size_t i = 0; i < memoryBlocks.size(); ++i) {
@@ -104,6 +106,7 @@ public:
         }
     }
 
+    // ************************************************************************************************
     void compactMemory() {
         int freeSize = 0;
         int currentAddress = 0;
@@ -126,6 +129,7 @@ public:
         memoryBlocks = compactedBlocks;
     }
 
+    // ************************************************************************************************
     void printStats() const {
         cout << "Current memory status:\n";
         for (size_t i = 0; i < memoryBlocks.size(); ++i) {
@@ -139,6 +143,7 @@ public:
     }
 };
 
+// ************************************************************************************************
 void processFile(const string& filePath) {
     ifstream inputFile(filePath);
     if (!inputFile) {
@@ -177,6 +182,7 @@ void processFile(const string& filePath) {
     inputFile.close();
 }
 
+// ************************************************************************************************
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         cout << "Usage: ./MemoryAllocator file_name" << endl;

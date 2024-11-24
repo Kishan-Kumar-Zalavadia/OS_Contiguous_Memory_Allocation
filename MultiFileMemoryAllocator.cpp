@@ -153,6 +153,7 @@ public:
     }
 };
 
+// ************************************************************************************************
 void processFile(const string& inputFileName) {
     ifstream inputFile(inputFileName);
     if (!inputFile) {
@@ -190,7 +191,7 @@ void processFile(const string& inputFileName) {
 
     inputFile.close();
 }
-
+// ************************************************************************************************
 int main() {
     string inputFolder = "inputs";  // Folder containing input files
     for (const auto& entry : fs::directory_iterator(inputFolder)) {
@@ -203,6 +204,7 @@ int main() {
     return 0;
 }
 
+// ************************************************************************************************
 /* 
   Compile the code
     g++ -std=c++17 -o MultiFileMemoryAllocator MultiFileMemoryAllocator.cpp
