@@ -25,6 +25,7 @@ class MemoryAllocator {
 private:
     vector<MemoryBlock> memoryBlocks;
 
+    // ************************************************************************************************
     void mergeFreeMemoryBlocks() {
         for (size_t i = 0; i < memoryBlocks.size() - 1; ++i) {
             if (memoryBlocks[i].isFree && memoryBlocks[i + 1].isFree) {
@@ -40,6 +41,7 @@ public:
         memoryBlocks.push_back(MemoryBlock(0, totalMemory));
     }
 
+    // ************************************************************************************************
     void allocateMemory(const string& process, int size, const string& strategy) {
         MemoryBlock* selectedBlock = nullptr;
 
@@ -87,6 +89,7 @@ public:
         }
     }
 
+    // ************************************************************************************************
     void releaseMemory(const string& process) {
         bool found = false;
         for (size_t i = 0; i < memoryBlocks.size(); ++i) {
@@ -103,6 +106,7 @@ public:
         }
     }
 
+    // ************************************************************************************************
     void compactMemory() {
         int freeSize = 0;
         int currentAddress = 0;
@@ -125,6 +129,7 @@ public:
         memoryBlocks = compactedBlocks;
     }
 
+    // ************************************************************************************************
     void printStats(const string& outputFileName) const {
         ofstream outputFile(outputFileName, ios::app);
         if (!outputFile) {
@@ -151,6 +156,7 @@ public:
     }
 };
 
+// ************************************************************************************************
 void processFile(const string& inputFileName, const string& outputFileName) {
     ifstream inputFile(inputFileName);
     if (!inputFile) {
@@ -199,6 +205,7 @@ void processFile(const string& inputFileName, const string& outputFileName) {
 }
 
 
+// ************************************************************************************************
 int main() {
     string inputFolder = "inputs";
     string outputFileName = "memory_stats.txt";
@@ -220,6 +227,7 @@ int main() {
 }
 
 
+// ************************************************************************************************
 /* 
   Compile the code:
     g++ -std=c++17 -o MultiFileMemoryAllocator MultiFileMemoryAllocator.cpp
